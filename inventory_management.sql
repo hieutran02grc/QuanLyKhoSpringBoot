@@ -102,7 +102,7 @@ create table `history`(
     PRIMARY KEY(ID)
 );
 
-user_rolecreate table `invoice`(
+create table `invoice`(
 	`ID` int(11) not null auto_increment,
 	`CODE` varchar(50) NOT NULL,
     `TYPE` int(1) NOT NULL,
@@ -114,5 +114,37 @@ user_rolecreate table `invoice`(
     `UPDATE_DATE` timestamp not null default CURRENT_TIMESTAMP,
     PRIMARY KEY(ID)
 );
+
+ALTER TABLE user_role ADD CONSTRAINT userId_foreign_key FOREIGN KEY (USER_ID) REFERENCES users (ID)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
+
+ALTER TABLE user_role ADD CONSTRAINT roleId_foreign_key FOREIGN KEY (ROLE_ID) REFERENCES role (ID)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
+
+ALTER TABLE auth ADD CONSTRAINT roleId_foreignKey FOREIGN KEY (ROLE_ID) REFERENCES role (ID)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
+
+ALTER TABLE auth ADD CONSTRAINT menuId_foreignKey FOREIGN KEY (MENU_ID) REFERENCES menu (ID)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
+
+ALTER TABLE product_info ADD CONSTRAINT cateID_foreignKey FOREIGN KEY (CATE_ID) REFERENCES category (ID)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
+
+ALTER TABLE product_in_stock ADD CONSTRAINT productID_foreignKey_stock FOREIGN KEY (PRODUCT_ID) REFERENCES product_info (ID)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
+
+ALTER TABLE history ADD CONSTRAINT productID_foreignKey_history FOREIGN KEY (PRODUCT_ID) REFERENCES product_info (ID)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
+
+ALTER TABLE invoice ADD CONSTRAINT productID_foreignKey_invoice FOREIGN KEY (PRODUCT_ID) REFERENCES product_info (ID)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
 
 
